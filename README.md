@@ -22,7 +22,7 @@
 |category            | text       | null:false   |
 |pay of shipping     | text       | null:false   |
 |region of origin    | text       | null: false  |
-|number of days until shipping    | text       | null: false  |
+|number of days until shipping    | text         | null: false  |
 |price               | text       | null:false   |
 |user id             | text       | null:false   |
 
