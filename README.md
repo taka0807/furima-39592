@@ -24,7 +24,7 @@
 |productname         | string     | null:false   |
 |explanation         | text       | null:false   |
 |category_id         | integer    | null:false   |
-|product_condition   | integer    | null:false   |
+|product_condition_id| integer    | null:false   |
 |pay_of_shipping_id  | integer    | null:false   |
 |region_of_origin_id | integer    | null:false   |
 |number_of_days_until_shipping_id | integer      | null: false    |
