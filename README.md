@@ -14,7 +14,12 @@
 |furigana_last_name  | string     | null:false   |
 |furigana_first_name | string     | null:false   |
 |birthday            | date       | null:false   |
-カラム名はスネークケースで記載。
+<!-- カラム名はスネークケースで記載。 -->
+
+<!-- Association -->
+- has_many :items
+- has_many :purchase
+
 
 <!-- itemsテーブル -->
 | Column             | Type       | Options      |
@@ -30,10 +35,14 @@
 <!-- |pay_of_shipping     | text       | null:false   | -->
 <!-- |region_of_origin    | text       | null:false   | -->
 <!-- |number_of_days_until_shipping    | text         | null: false  | -->
-|price               | integer    | null:false   |
+|price                    | integer    | null:false   |
 <!-- |price               | text       | null:false   | -->
 <!-- 金額は数値で入力されるため、Typeにはinteger型を指定 -->
 |user                | references | null:false   |
+
+<!-- Association -->
+- belongs_to :users
+- has_one :purchase
 
 
 <!-- purchaseテーブル -->
@@ -42,13 +51,17 @@
 |user                | references | null:false   |
 |items               | references | null:false   |
 
+<!-- Association -->
+- has_one :address
+
 
 <!-- addressテーブル -->
 | Column             | Type       | Options      |
 | -------------------| -----------| ------------ |
-|post_code           | integer       | null:false   |
-|prefecture          | integer       | null:false   |
+|post_code           | integer    | null:false   |
+|region_of_origin_id | integer    | null:false   |
 <!-- |prefecture          | integer       | null:false   | -->
+<!-- itemカラムの都道府県と合わせる。と当初はprefectureと記載。 -->
 |municipalities      | string     | null:false   |
 |street_address      | string     | null:false   |
 |building_name       | string     |              |
