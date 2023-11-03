@@ -21,10 +21,10 @@
 ## items table
 | Column             | Type       | Options      |
 | -------------------| -----------| ------------ |
-|product_name        | string     | null:false   |
-|text                | text       | null:false   |
+|productname         | string     | null:false   |
+|explanation         | text       | null:false   |
 |category_id         | integer    | null:false   |
-|product condition   | integer    | null:false   |
+|product_condition   | integer    | null:false   |
 |pay_of_shipping_id  | integer    | null:false   |
 |region_of_origin_id | integer    | null:false   |
 |number_of_days_until_shipping_id | integer      | null: false    |
@@ -57,7 +57,7 @@
 |street_address      | string     | null:false   |
 |building_name       | string     |              |
 |telephone_number    | string     | null:false   |
-|purchase            | references | null:false   |
+|purchase            | references | null:false, foreign_key: true   |
 
 <!-- Association -->
 - belongs_to :purchase
