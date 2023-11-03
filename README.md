@@ -6,7 +6,7 @@
 | -------------------| -----------| ------------ |
 |nickname            | string     | null:false   |
 <!-- |email               | string     | unique: true |間違えた -->
-|email               | string     | unique:true  |
+|email               | string     | null:false, unique:true  |
 <!-- |password            | string     | null: false  |間違えた。データベースには暗号化して保存するため。 -->
 |encrypted_password  | string     | null:false   |
 |last_name           | string     | null:false   |
@@ -18,7 +18,7 @@
 
 <!-- Association -->
 - has_many :items
-- has_many :purchase
+- has_many :purchases
 
 
 <!-- itemsテーブル -->
@@ -27,7 +27,8 @@
 <!-- |image| string     | null: false  |image不要。active_storage導入時に自動でテーブルなどが生成される -->
 |product_name        | string     | null:false   |
 |text                | text       | null:false   |
-|category_id            | integer | null:false   |
+|category_id         | integer    | null:false   |
+|product condition   | integer    | null:false   |
 |pay_of_shipping_id     | integer | null:false   |
 |region_of_origin_id    | integer | null:false   |
 |number_of_days_until_shipping_id | integer      | null: false  |
@@ -41,7 +42,7 @@
 |user                | references | null:false   |
 
 <!-- Association -->
-- belongs_to :users
+- belongs_to :user
 - has_one :purchase
 
 
@@ -49,16 +50,18 @@
 | Column             | Type       | Options      |
 | -------------------| -----------| ------------ |
 |user                | references | null:false   |
-|items               | references | null:false   |
+|item                | references | null:false   |
 
 <!-- Association -->
 - has_one :address
+- belongs_to :user
+- belongs_to :item
 
 
 <!-- addressテーブル -->
 | Column             | Type       | Options      |
 | -------------------| -----------| ------------ |
-|post_code           | integer    | null:false   |
+|post_code           | string    | null:false   |
 |region_of_origin_id | integer    | null:false   |
 <!-- |prefecture          | integer       | null:false   | -->
 <!-- itemカラムの都道府県と合わせる。と当初はprefectureと記載。 -->
@@ -75,6 +78,10 @@
 <!-- |items               | references | null:false   | -->
 <!-- 購入管理テーブルで管理するため、不要 -->
 |purchase            | references | null:false   |
+
+<!-- Association -->
+- belongs_to :purchase
+
 
 
 <!--
