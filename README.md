@@ -6,7 +6,7 @@
 | -------------------| -----------| ------------ |
 |nickname            | string     | null:false   |
 <!-- |email               | string     | unique: true |間違えた -->
-|email               | string     | null:false   |
+|email               | string     | unique:true  |
 <!-- |password            | string     | null: false  |間違えた。データベースには暗号化して保存するため。 -->
 |encrypted_password  | string     | null:false   |
 |last_name           | string     | null:false   |
@@ -22,11 +22,17 @@
 <!-- |image| string     | null: false  |image不要。active_storage導入時に自動でテーブルなどが生成される -->
 |product_name        | string     | null:false   |
 |text                | text       | null:false   |
-|category            | text       | null:false   |
-|pay_of_shipping     | text       | null:false   |
-|region_of_origin    | text       | null:false   |
-|number_of_days_until_shipping    | text         | null: false  |
-|price               | text       | null:false   |
+|category_id            | integer | null:false   |
+|pay_of_shipping_id     | integer | null:false   |
+|region_of_origin_id    | integer | null:false   |
+|number_of_days_until_shipping_id | integer      | null: false  |
+<!-- |category            | text       | null:false   | -->
+<!-- |pay_of_shipping     | text       | null:false   | -->
+<!-- |region_of_origin    | text       | null:false   | -->
+<!-- |number_of_days_until_shipping    | text         | null: false  | -->
+|price               | integer    | null:false   |
+<!-- |price               | text       | null:false   | -->
+<!-- 金額は数値で入力されるため、Typeにはinteger型を指定 -->
 |user                | references | null:false   |
 
 
@@ -40,8 +46,9 @@
 <!-- addressテーブル -->
 | Column             | Type       | Options      |
 | -------------------| -----------| ------------ |
-|post_code           | text       | null:false   |
-|prefecture          | text       | null:false   |
+|post_code           | integer       | null:false   |
+|prefecture          | integer       | null:false   |
+<!-- |prefecture          | integer       | null:false   | -->
 |municipalities      | string     | null:false   |
 |street_address      | string     | null:false   |
 |building_name       | string     |              |
