@@ -4,17 +4,14 @@ FactoryBot.define do
     email                 {Faker::Internet.email}
     password              {Faker::Internet.password}
     password_confirmation {password}
-		# last_name             { 'AAAAA' }
-		# first_name            { 'AAAAA' }
     last_name             { "さとう" }
 		first_name            { "たろう" }
 		furigana_last_name    {'タナカ'}
 		furigana_first_name   {'タロウ'}
-    # furigana_last_name    {Faker::furigana_last_name}
-		# furigana_first_name   {Faker::furigana_first_name}
 		birthday              { Faker::Date.birthday(min_age: 18, max_age: 65) }
   end
 end
+# 実際に保存される内容を記載する。last_name とhurigana_lastは英語表記,Fakerを使用してしまっていた。
 
 
 # 最終課題はemailだけFakerを導入すれば良い
