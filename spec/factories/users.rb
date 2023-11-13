@@ -4,10 +4,14 @@ FactoryBot.define do
     email                 {Faker::Internet.email}
     password              {Faker::Internet.password}
     password_confirmation {password}
-		last_name             { Faker::Name.last_name }
-		first_name            { Faker::Name.first_name }
-		furigana_last_name    {'aaaaa'}
-		furigana_first_name   {'aaaaa'}
+		# last_name             { 'AAAAA' }
+		# first_name            { 'AAAAA' }
+    last_name             { "さとう" }
+		first_name            { "たろう" }
+		furigana_last_name    {'タナカ'}
+		furigana_first_name   {'タロウ'}
+    # furigana_last_name    {Faker::furigana_last_name}
+		# furigana_first_name   {Faker::furigana_first_name}
 		birthday              { Faker::Date.birthday(min_age: 18, max_age: 65) }
   end
 end

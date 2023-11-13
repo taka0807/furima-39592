@@ -38,11 +38,12 @@ RSpec.describe User, type: :model do
       expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
     end
     it 'emailが一意性であること' do
-      duplicate_user = @user.dup
-      duplicate_user.email = @user.email.upcase
       @user.save
-      duplicate_user.valid?
-      expect(duplicate_user.errors.full_messages).to include "Email has already been taken"
+      another_user = FactoryBot.build(:user)
+      another_user.email = @user.email
+      another_user.valid?
+      expect(another_user.errors.full_messages).to include "Email has already been taken"
+      # 〜【解答6】PicTweetのモデルの単体テストコードを書こう〜を参考
     end
     it 'password_confirmationが空では登録できない' do
       @user.password_confirmation = ''
@@ -76,27 +77,43 @@ RSpec.describe User, type: :model do
     end
     it 'お名前(全角)は、名字と名前がそれぞれ必須であること' do
       @user.last_name = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Last name can't be blank"
+    end
+    it 'お名前(全角)は、名字と名前がそれぞれ必須であること' do
       @user.first_name = ''
       @user.valid?
-      expect(@user.errors.full_messages).to include "Last name can't be blank", "First name can't be blank"
+      expect(@user.errors.full_messages).to include "First name can't be blank"
     end
     it 'お名前(全角)は、全角（漢字・ひらがな・カタカナ）での入力が必須であること' do
       @user.last_name = 'Smith'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Last name は全角文字で入力してください"
+    end
+    it 'お名前(全角)は、全角（漢字・ひらがな・カタカナ）での入力が必須であること' do
       @user.first_name = 'John'
       @user.valid?
-      expect(@user.errors.full_messages).to include "Last name は全角文字で入力してください", "First name は全角文字で入力してください"
+      expect(@user.errors.full_messages).to include "First name は全角文字で入力してください"
     end
     it 'お名前カナ(全角)は、名字と名前がそれぞれ必須であること' do
       @user.furigana_last_name = ''
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Furigana last name can't be blank"
+    end
+    it 'お名前カナ(全角)は、名字と名前がそれぞれ必須であること' do
       @user.furigana_first_name = ''
       @user.valid?
-      expect(@user.errors.full_messages).to include "Last name は全角文字で入力してください","First name は全角文字で入力してください","Furigana last name can't be blank","Furigana last name は全角カナ文字で入力してください","Furigana first name can't be blank","Furigana first name は全角カナ文字で入力してください"
+      expect(@user.errors.full_messages).to include "Furigana first name can't be blank"
     end
     it 'お名前カナ(全角)は、全角（カタカナ）での入力が必須であること' do
       @user.furigana_last_name = 'すみす'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Furigana last name は全角カナ文字で入力してください"
+    end
+    it 'お名前カナ(全角)は、全角（カタカナ）での入力が必須であること' do
       @user.furigana_first_name = 'たろう'
       @user.valid?
-      expect(@user.errors.full_messages).to include "Last name は全角文字で入力してください", "First name は全角文字で入力してください", "Furigana last name は全角カナ文字で入力してください", "Furigana first name は全角カナ文字で入力してく ださい"
+      expect(@user.errors.full_messages).to include  "Furigana first name は全角カナ文字で入力してください"
     end
 
     it 'birthdayが空では登録できない' do
