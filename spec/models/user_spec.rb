@@ -6,6 +6,28 @@ RSpec.describe User, type: :model do
   end
 
   describe 'ユーザー新規登録' do
+    it '正常にユーザーが登録できること' do
+      expect(@user).to be_valid
+    end
+    it '正しい形式のメールアドレスで登録できること' do
+      @user.email = 'validemail@example.com'
+      expect(@user).to be_valid
+    end
+    it '要件を満たしたパスワードで登録できること' do
+      @user.password = 'ValidPassword123'
+      @user.password_confirmation = 'ValidPassword123'
+      expect(@user).to be_valid
+    end
+    it '適切な形式の名前で登録できること' do
+      @user.last_name = '山田'
+      @user.first_name = '太郎'
+      @user.furigana_last_name = 'ヤマダ'
+      @user.furigana_first_name = 'タロウ'
+      expect(@user).to be_valid
+    end
+  end
+
+  describe 'ユーザー新規登録' do
     it 'nicknameが空では登録できない' do
       # user = FactoryBot.build(:user)
       @user.nickname = ''
