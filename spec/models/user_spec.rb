@@ -97,15 +97,15 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include "First name can't be blank"
     end
-    it 'お名前(全角)は、名字と名前がそれぞれ必須であること' do
-      @user.last_name = ''
+    it 'furigana_last_nameが空では登録できない' do
+      @user.furigana_last_name = ''
       @user.valid?
-      expect(@user.errors.full_messages).to include "Last name can't be blank"
+      expect(@user.errors.full_messages).to include "Furigana last name can't be blank"
     end
-    it 'お名前(全角)は、名字と名前がそれぞれ必須であること' do
-      @user.first_name = ''
+    it 'furigana_first_nameが空では登録できない' do
+      @user.furigana_first_name = ''
       @user.valid?
-      expect(@user.errors.full_messages).to include "First name can't be blank"
+      expect(@user.errors.full_messages).to include "Furigana first name can't be blank"
     end
     it 'お名前(全角)は、全角（漢字・ひらがな・カタカナ）での入力が必須であること' do
       @user.last_name = 'Smith'
