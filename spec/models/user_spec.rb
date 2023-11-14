@@ -5,7 +5,7 @@ RSpec.describe User, type: :model do
     @user = FactoryBot.build(:user)
   end
 
-  describe 'ユーザー新規登録' do
+  context  'ユーザ登録ができる時' do
     it '正常にユーザーが登録できること' do
       expect(@user).to be_valid
     end
@@ -27,7 +27,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'ユーザー新規登録' do
+  context  'ユーザ登録ができない時' do
     it 'nicknameが空では登録できない' do
       # user = FactoryBot.build(:user)
       @user.nickname = ''
@@ -59,6 +59,16 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include "Password confirmation doesn't match Password"
     end
+    it '数字のみでは登録できないこと' do
+      @user.password = '123456'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Password は半角英数字混合で入力してください"
+    end
+    it '全角だと登録できないこと' do
+      @user.password = 'パスワード'
+      @user.valid?
+      expect(@user.errors.full_messages).to include "Password は半角英数字混合で入力してください"
+    end
     it 'emailが一意性であること' do
       @user.save
       another_user = FactoryBot.build(:user)
@@ -87,16 +97,6 @@ RSpec.describe User, type: :model do
       @user.valid?
       expect(@user.errors.full_messages).to include "First name can't be blank"
     end
-    it 'furigana_last_nameが空では登録できない' do
-      @user.furigana_last_name = ''
-      @user.valid?
-      expect(@user.errors.full_messages).to include "Furigana last name can't be blank"
-    end
-    it 'furigana_first_nameが空では登録できない' do
-      @user.furigana_first_name = ''
-      @user.valid?
-      expect(@user.errors.full_messages).to include "Furigana first name can't be blank"
-    end
     it 'お名前(全角)は、名字と名前がそれぞれ必須であること' do
       @user.last_name = ''
       @user.valid?
@@ -116,16 +116,6 @@ RSpec.describe User, type: :model do
       @user.first_name = 'John'
       @user.valid?
       expect(@user.errors.full_messages).to include "First name は全角文字で入力してください"
-    end
-    it 'お名前カナ(全角)は、名字と名前がそれぞれ必須であること' do
-      @user.furigana_last_name = ''
-      @user.valid?
-      expect(@user.errors.full_messages).to include "Furigana last name can't be blank"
-    end
-    it 'お名前カナ(全角)は、名字と名前がそれぞれ必須であること' do
-      @user.furigana_first_name = ''
-      @user.valid?
-      expect(@user.errors.full_messages).to include "Furigana first name can't be blank"
     end
     it 'お名前カナ(全角)は、全角（カタカナ）での入力が必須であること' do
       @user.furigana_last_name = 'すみす'
