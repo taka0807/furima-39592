@@ -9,10 +9,10 @@ validates :image, presence: true
 	validates :productname, presence: true
 	validates :explanation, presence: true
 	validates :category, presence: true
-	validates :product_condition, presence: true
-	validates :pay_of_shipping, presence: true
-	validates :region_of_origin, presence: true
-	validates :number_of_days_until_shipping, presence: true
+	validates :product_condition_id, presence: true
+	validates :pay_of_shipping_id, presence: true
+	validates :region_of_origin_id, presence: true
+	validates :number_of_days_until_shipping_id, presence: true
 	validates :price, presence: true
 
 
