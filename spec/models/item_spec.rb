@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Item, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  # pending "add some examples to (or delete) #{__FILE__}"
   before do
     @user = FactoryBot.create(:user) # テスト用のユーザーを作成
     @item = FactoryBot.build(:item, user: @user) # テスト用のItemを作成し、関連付け
@@ -11,8 +11,6 @@ RSpec.describe Item, type: :model do
     it '正常に商品が登録できること' do
       expect(@item).to be_valid
     end
-
-    # 他の正常な商品登録パターンのテストも記述できます
   end
 
   context '商品登録ができない時' do
@@ -35,25 +33,25 @@ RSpec.describe Item, type: :model do
     end
 
     it '商品の状態が選択されていないと登録できない' do
-      @item.product_condition = nil
+      @item.product_condition_id = nil
       @item.valid?
       expect(@item.errors.full_messages).to include "Product condition can't be blank"
     end
 
     it '配送料の負担が選択されていないと登録できない' do
-      @item.pay_of_shipping = nil
+      @item.pay_of_shipping_id = nil
       @item.valid?
       expect(@item.errors.full_messages).to include "Pay of shipping can't be blank"
     end
 
     it '発送元の地域が選択されていないと登録できない' do
-      @item.region_of_origin = nil
+      @item.region_of_origin_id = nil
       @item.valid?
       expect(@item.errors.full_messages).to include "Region of origin can't be blank"
     end
 
     it '発送までの日数が選択されていないと登録できない' do
-      @item.number_of_days_until_shipping = nil
+      @item.number_of_days_until_shipping_id = nil
       @item.valid?
       expect(@item.errors.full_messages).to include "Number of days until shipping can't be blank"
     end
