@@ -4,7 +4,7 @@ RSpec.describe Item, type: :model do
   # pending "add some examples to (or delete) #{__FILE__}"
   before do
     # @user = FactoryBot.create(:user) # テスト用のユーザーを作成
-    @item = FactoryBot.build(:item) # テスト用のItemを作成し、関連付け
+    @item = FactoryBot.build(:item,) # テスト用のItemを作成し、関連付け
   end
 
   context '商品登録ができる時' do
