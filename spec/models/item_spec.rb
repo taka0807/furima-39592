@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Item, type: :model do
   # pending "add some examples to (or delete) #{__FILE__}"
   before do
-    @user = FactoryBot.create(:user) # テスト用のユーザーを作成
+    # @user = FactoryBot.create(:user) # テスト用のユーザーを作成
     @item = FactoryBot.build(:item, user: @user) # テスト用のItemを作成し、関連付け
   end
 
@@ -27,31 +27,31 @@ RSpec.describe Item, type: :model do
     end
 
     it 'カテゴリーが選択されていないと登録できない' do
-      @item.category = nil
+      @item.category_id = 999
       @item.valid?
       expect(@item.errors.full_messages).to include "Category can't be blank"
     end
 
     it '商品の状態が選択されていないと登録できない' do
-      @item.product_condition_id = nil
+      @item.product_condition_id = 999
       @item.valid?
       expect(@item.errors.full_messages).to include "Product condition can't be blank"
     end
 
     it '配送料の負担が選択されていないと登録できない' do
-      @item.pay_of_shipping_id = nil
+      @item.pay_of_shipping_id = 999
       @item.valid?
       expect(@item.errors.full_messages).to include "Pay of shipping can't be blank"
     end
 
     it '発送元の地域が選択されていないと登録できない' do
-      @item.region_of_origin_id = nil
+      @item.region_of_origin_id = 999
       @item.valid?
       expect(@item.errors.full_messages).to include "Region of origin can't be blank"
     end
 
     it '発送までの日数が選択されていないと登録できない' do
-      @item.number_of_days_until_shipping_id = nil
+      @item.number_of_days_until_shipping_id = 999
       @item.valid?
       expect(@item.errors.full_messages).to include "Number of days until shipping can't be blank"
     end
@@ -68,6 +68,30 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include "Image can't be blank"
     end
 
+    it 'Userが紐づいていないと保存できないこと' do
+      @item.user = nil # Userをnilに設定
+      @item.valid?
+      expect(@item.errors.full_messages).to include 'User must exist'
+    end
+
     # 他の商品登録失敗パターンのテストも同様に記述できます
+    context '商品価格に関するテスト' do
+      it '半角数字以外の値が含まれている場合は保存できないこと' do
+        @item.price = '５００'  # 半角数字以外の値を代入
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price is not a number'
+      end
+
+      it '300未満の値では保存できないこと' do
+        @item.price = 299  # 300未満の値を代入
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price must be greater than or equal to 300'
+      end
+
+      it '10000000以上の値では保存できないこと' do
+        @item.price = 10_000_000  # 10000000以上の値を代入
+        @item.valid?
+        expect(@item.errors.full_messages).to include 'Price must be less than or equal to 9999999'
+      end
+    end
   end
-end
