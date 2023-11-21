@@ -75,8 +75,7 @@ RSpec.describe Item, type: :model do
     end
 
     # 他の商品登録失敗パターンのテストも同様に記述できます
-    context '商品価格に関するテスト' do
-      it '半角数字以外の値が含まれている場合は保存できないこと' do
+      it '商品価格に関する半角数字以外の値が含まれている場合は保存できないこと' do
         @item.price = '５００'  # 半角数字以外の値を代入
         @item.valid?
         expect(@item.errors.full_messages).to include 'Price is not a number'
@@ -95,4 +94,3 @@ RSpec.describe Item, type: :model do
       end
     end
   end
-end
