@@ -1,8 +1,6 @@
 # README
 
 
-<<<<<<< HEAD
-=======
 ## users table
 | Column             | Type       | Options      |
 | -------------------| -----------| ------------ |
@@ -163,7 +161,6 @@
 
 
 <!--
->>>>>>> dbf30079ff0ad7520846bf62497a1f08caf46bf0
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
