@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
   def index
+    @items = Item.all
     # index メソッドの処理を記述する
   end
 
