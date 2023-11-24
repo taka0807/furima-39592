@@ -2,8 +2,7 @@ class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
   skip_before_action :authenticate_user!, only: :index
   def index
-    @items = Item.all
-    # index メソッドの処理を記述する
+    @items = Item.order(created_at: :desc)
   end
 
 def new
