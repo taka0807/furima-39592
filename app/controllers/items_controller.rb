@@ -1,12 +1,13 @@
 class ItemsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create]
   def index
-    # index メソッドの処理を記述する
+    @items = Item.order(created_at: :desc)
   end
 
 def new
   @item = Item.new
 end
+
 
 def create
   @item = Item.new(item_params)
