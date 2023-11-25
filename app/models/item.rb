@@ -6,7 +6,7 @@ belongs_to :product_condition
 belongs_to :pay_of_shipping
 belongs_to :region_of_origin
 belongs_to :number_of_days_until_shipping
-has_one :purchase
+# has_one :purchase
 has_one_attached :image
 
 validates :image, presence: true
