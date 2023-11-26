@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
   def index
     @items = Item.order(created_at: :desc)
   end
@@ -15,7 +15,12 @@ end
 
 def edit
   @item = Item.find(params[:id])
+
+  if user_signed_in? && current_user != @item.user
+    redirect_to root_path, alert: 'You are not authorized to edit this item.'
+  end
 end
+
 
 def update
   @item = Item.find(params[:id])
