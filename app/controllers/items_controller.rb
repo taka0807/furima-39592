@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
-  before_action :set_item, only: [:show, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
     @items = Item.order(created_at: :desc)
@@ -43,6 +43,16 @@ def create
   end
 end
 
+def destroy
+  if current_user == @item.user # ログインユーザーが出品者か確認
+    @item.destroy
+    redirect_to root_path, notice: 'Item was successfully deleted.'
+  else
+    redirect_to root_path, alert: 'You are not authorized to delete this item.'
+  end
+end
+
+private
 def set_item
   @item = Item.find(params[:id])
 end
