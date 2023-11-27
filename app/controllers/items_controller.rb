@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :create, :edit, :update]
+  before_action :authenticate_user!, only: [:new, :create, :edit, :update, :destroy]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -44,8 +44,12 @@ def create
 end
 
 def destroy
-   @item.destroy
-   redirect_to root_path, notice: 'Item was successfully deleted.'
+  if current_user == @item.user # ログインユーザーが出品者か確認
+    @item.destroy
+    redirect_to root_path, notice: 'Item was successfully deleted.'
+  else
+    redirect_to root_path, alert: 'You are not authorized to delete this item.'
+  end
 end
 
 private
