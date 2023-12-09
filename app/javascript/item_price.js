@@ -1,3 +1,7 @@
+document.addEventListener("DOMContentLoaded", () => {
+
+
+
 const priceInput = document.getElementById("item-price");
 const addTaxDom = document.getElementById("add-tax-price");
 const profitDom = document.getElementById("profit");
@@ -25,4 +29,5 @@ priceInput.addEventListener("input", () => {
 //  })
 
 //  const addTaxDom = document.getElementById("add-tax-price");
-//     addTaxDom.innerHTML = tax.toLocaleString();
+    // addTaxDom.innerHTML = tax.toLocaleString();
+  });
