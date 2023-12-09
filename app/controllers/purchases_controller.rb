@@ -4,9 +4,6 @@ class PurchasesController < ApplicationController
   before_action :redirect_if_owner_or_sold, only: [:index, :new, :create]
 
   # 新しい購入フォームを表示するためのアクション
-  def new
-    @purchase_address = PurchasesAddress.new
-  end
 
   def create
     @purchase_address = PurchasesAddress.new(purchase_params)
@@ -47,7 +44,7 @@ class PurchasesController < ApplicationController
   end
 
   def purchase_params
-    params.require(:purchases_address).permit(:post_code, :region_of_origin_id, :municipalities, :street_address, :building_name, :telephone_number, :price )
+    params.require(:purchases_address).permit(:post_code, :region_of_origin_id, :municipalities, :street_address, :building_name, :telephone_number )
           .merge(user_id: current_user.id, item_id: params[:item_id], token: params[:token])
   end
 

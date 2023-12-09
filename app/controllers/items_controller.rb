@@ -14,15 +14,6 @@ def new
   @item = Item.new
 end
 
-
-# def edit
-#   # @item = Item.find(params[:id])
-
-#   if user_signed_in? && current_user != @item.user
-#     redirect_to root_path, alert: 'You are not authorized to edit this item.'
-#   end
-# end
-
 def edit
   # 売却済み、またはログインユーザーが出品者でない場合、トップページにリダイレクト
   if @item.purchase.present? || current_user != @item.user
