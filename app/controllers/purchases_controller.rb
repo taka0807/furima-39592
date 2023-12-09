@@ -5,12 +5,10 @@ class PurchasesController < ApplicationController
 
   # 新しい購入フォームを表示するためのアクション
   def new
-    @item = Item.find(params[:item_id])
     @purchase_address = PurchasesAddress.new
   end
 
   def create
-    @item = Item.find(params[:item_id])
     @purchase_address = PurchasesAddress.new(purchase_params)
 
     if @purchase_address.valid?
@@ -20,7 +18,6 @@ class PurchasesController < ApplicationController
         card: purchase_params[:token],    # カードトークン
         currency: 'jpy'                 # 通貨の種類（日本円）
       )
-      # binding.pry
       @purchase_address.save
 
       redirect_to root_path, notice: 'Purchase was successful.'

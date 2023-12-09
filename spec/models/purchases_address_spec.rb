@@ -36,10 +36,9 @@ RSpec.describe PurchasesAddress, type: :model do
         # expect(@purchases_address.errors.full_messages).to include("郵便番号は「3桁ハイフン4桁」の形式で入力してください。")
         expect(@purchases_address.errors.full_messages).to include("Post code は「3桁ハイフン4桁」の形式で入力してください")
       end
-      it 'region_of_origin_idが空だと保存できないこと' do
-        @purchases_address.region_of_origin_id = nil
+      it 'region_of_origin_idが1だと保存できないこと' do
+        @purchases_address.region_of_origin_id = 1
         @purchases_address.valid?
-        # expect(@purchases_address.errors.full_messages).to include("都道府県が選択されていません。")
         expect(@purchases_address.errors.full_messages).to include("Region of origin can't be blank")
       end
       it 'municipalitiesが空だと保存できないこと' do
@@ -66,6 +65,18 @@ RSpec.describe PurchasesAddress, type: :model do
         # expect(@purchases_address.errors.full_messages).to include("電話番号は10桁以上11桁以内の半角数値で入力してください。")
         expect(@purchases_address.errors.full_messages).to include("Telephone number は10桁以上11桁以内の半角数値で入力してください")
       end
+      it 'telephone_numberが9桁以下だと保存できないこと' do
+        @purchases_address.telephone_number = '123456789'
+        @purchases_address.valid?
+        expect(@purchases_address.errors.full_messages).to include("Telephone number は10桁以上11桁以内の半角数値で入力してください")
+      end
+      it 'telephone_numberが12桁以上だと保存できないこと' do
+        @purchases_address.telephone_number = '123456789012'
+        @purchases_address.valid?
+        expect(@purchases_address.errors.full_messages).to include("Telephone number は10桁以上11桁以内の半角数値で入力してください")
+      end
+
+
       # telephone_number9桁と12桁のテストコードをそれぞれ作成
       it 'userが紐付いていないと保存できないこと' do
         @purchases_address.user_id = nil
