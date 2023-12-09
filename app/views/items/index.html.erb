@@ -135,8 +135,11 @@
         <div class='item-img-content'>
           <%= image_tag item.image, class: "item-img" %>
 
-
-
+          <% if  item.purchase.present?  %>
+            <div class='sold-out'>
+              <span>Sold Out!!</span>
+            </div>
+          <% end %>
 
 
         </div>
@@ -190,11 +193,3 @@
 <%= render "shared/footer" %>
 
 
-<%# <%= image_tag "item-sample.png", class: "item-img" %>の下 %>
-<%# 商品が売れていればsold outを表示しましょう %>
-          <%# <% if  商品のオブジェクト名.purchase.present?  %> %>
-            <%# <div class='sold-out'> %>
-              <%# <span>Sold Out!!</span> %>
-            <%# </div> %>
-          <%# <% end %> %>
-          <%# //商品が売れていればsold outを表示しましょう %>
