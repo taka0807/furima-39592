@@ -19,7 +19,9 @@ class PurchasesController < ApplicationController
 
       redirect_to root_path, notice: 'Purchase was successful.'
     else
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
       render :index, status: :unprocessable_entity
+
     end
   end
 
