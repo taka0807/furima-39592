@@ -12,7 +12,8 @@ class PurchasesAddress
     validates :item_id
   end
 
-  validates :region_of_origin_id, numericality: { other_than: 1, message: "can't be blank" }
+  # validates :region_of_origin_id, numericality: { other_than: 1, message: "can't be blank" }
+  validates :region_of_origin_id, numericality: { other_than: 1, message: "を入力してください" }
 
   def save
     # 購入情報を保存し、変数purchaseに代入する
